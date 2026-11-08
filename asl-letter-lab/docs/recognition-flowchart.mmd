@@ -1,0 +1,17 @@
+flowchart TD
+    A([Press Start Camera]) --> B[Camera turns on]
+    B --> C[App takes one video picture]
+    C --> D{Do we see a hand?}
+    D -- No --> E[Show: 'Please show your hand']
+    E --> C
+    D -- Yes --> F[Find 21 little dot spots on the hand]
+    F --> G[Turn the dots into a hand map]
+    G --> H{Did the user tap Save example?}
+    H -- Yes --> I[Save the hand map with the chosen letter]
+    I --> J[(Save progress in localStorage)]
+    H -- No --> K[Look at the saved hand maps]
+    J --> K
+    K --> L[Compare the new hand map to the saved ones]
+    L --> M[Pick the closest match]
+    M --> N[Show the best letter guess on screen]
+    N --> C

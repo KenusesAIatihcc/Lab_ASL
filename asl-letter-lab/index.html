@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#142e39">
+  <meta name="description" content="An interactive ASL alphabet trainer with webcam hand tracking, personal training examples, and word practice.">
+  <title>SignLab — ASL Alphabet Trainer</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="SignLab, back to top"><span class="brand-symbol" aria-hidden="true">✳</span><span>signlab<span class="brand-period">.</span></span></a>
+      <span class="header-label"><span class="header-dot" aria-hidden="true"></span> YOUR PERSONAL ASL PRACTICE SPACE</span>
+    </header>
+
+    <section class="hero" id="top" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <span class="eyebrow">LEARN THE ALPHABET • ONE SIGN AT A TIME</span>
+        <h1 id="page-title">Your hands have<br><em>something to say.</em></h1>
+        <p>Show a letter to your webcam, teach the model your signs, and build a little more confidence with every practice session.</p>
+      </div>
+      <div class="hero-progress" aria-labelledby="progress-heading">
+        <div class="progress-top"><span id="progress-heading">YOUR TRAINING PROGRESS</span><span class="sparkle" aria-hidden="true">✦</span></div>
+        <div class="progress-number"><strong id="trained-total">0</strong><span>/ 26 letters</span></div>
+        <progress id="coverage-bar" max="26" value="0" aria-label="Letters with training examples"></progress>
+        <div class="progress-bottom"><span><strong id="example-total">0</strong> saved examples</span><span id="progress-caption">Every sign starts somewhere</span></div>
+      </div>
+    </section>
+
+    <main>
+      <div class="workspace">
+        <section class="panel camera-panel" aria-labelledby="camera-heading">
+          <div class="panel-heading"><div><span class="section-index">01 / CAMERA STUDIO</span><h2 id="camera-heading">Show your sign</h2></div><span class="panel-mini-tag">LIVE PRACTICE</span></div>
+          <div class="camera-stage" id="camera-stage">
+            <div class="camera-placeholder" id="camera-placeholder">
+              <div class="camera-placeholder-icon" aria-hidden="true">✋</div>
+              <strong>Ready when you are</strong>
+              <span>Start your camera and hold one hand in the frame.</span>
+            </div>
+            <canvas id="canvas" aria-label="Live camera with hand landmark overlay" hidden></canvas>
+            <video id="video" playsinline muted hidden></video>
+            <span class="camera-stage-label"><span class="status-light" aria-hidden="true"></span><span id="camera-indicator">CAMERA OFF</span></span>
+          </div>
+          <p class="camera-status" id="status" role="status" aria-live="polite">Camera is off. Choose Start camera.</p>
+          <div class="button-row camera-actions"><button class="button button-primary" id="start-button" type="button">Start camera <span aria-hidden="true">↗</span></button><button class="button button-outline" id="stop-button" type="button" disabled>Stop camera</button></div>
+          <p class="help-text">Tip: use bright, even lighting with your whole hand visible. Camera access requires HTTPS or localhost.</p>
+        </section>
+
+        <div class="right-stack">
+          <section class="panel guess-panel" aria-labelledby="guess-heading">
+            <div class="panel-heading"><div><span class="section-index">02 / REAL-TIME FEEDBACK</span><h2 id="guess-heading">The model sees...</h2></div><span class="tiny-pulse" aria-hidden="true"></span></div>
+            <div class="guess-content"><output id="prediction" class="prediction" aria-label="Predicted letter">—</output><div class="guess-description"><span class="eyebrow">CLOSEST TRAINED LETTER</span><p id="prediction-detail">Teach at least one sign to start making guesses.</p></div></div>
+            <p class="help-text">A nearest-example guess, not a confidence score or a complete sign-language translation.</p>
+          </section>
+
+          <section class="panel training-panel" aria-labelledby="teach-heading">
+            <div class="panel-heading"><div><span class="section-index">03 / TEACH THE MODEL</span><h2 id="teach-heading">Save a handshape</h2></div></div>
+            <div class="training-layout">
+              <div class="selected-preview"><img id="selected-image" src="assets/letters/a.png" alt="ASL handshape for A" width="110" height="100"><span id="selected-preview-label">Letter A</span></div>
+              <div class="training-controls"><label for="letter-select">Choose a letter</label><select id="letter-select" aria-describedby="selected-summary"></select><span id="selected-summary" class="selection-summary">0 examples saved for A</span><span id="motion-hint" class="motion-hint" hidden>J and Z include motion; a single-frame guess cannot fully detect their movement.</span></div>
+            </div>
+            <div class="button-row training-actions"><button class="button button-primary" id="capture-button" type="button" disabled>+ Save example</button><button class="button button-outline" id="reset-letter-button" type="button" disabled>Reset this letter</button></div>
+            <div class="training-footer"><span class="storage-note" id="storage-note" role="status">Your examples save automatically on this device.</span><button class="text-button" id="clear-button" type="button">Clear all examples</button></div>
+          </section>
+        </div>
+      </div>
+
+      <section class="panel word-panel" aria-labelledby="word-heading">
+        <div class="word-main"><div class="panel-heading"><div><span class="section-index">04 / WORD PLAYGROUND</span><h2 id="word-heading">Spell something new.</h2></div></div><p>Practice a word one letter at a time. Change the word whenever you're ready for a new challenge.</p><div class="button-row"><button class="button button-dark" id="generate-button" type="button">✦ Generate word</button><button class="button button-outline" id="next-letter-button" type="button">Next letter →</button><button class="text-button" id="restart-word-button" type="button">Start over</button></div></div>
+        <div class="word-practice"><div class="word-area-title"><span>CURRENT WORD</span><span id="word-position">1 OF 5</span></div><div id="word-letters" class="word-letters" aria-label="Practice word letters"></div><div class="word-target"><img id="word-image" src="assets/letters/h.png" alt="ASL handshape for H" width="70" height="64"><span id="word-instruction">Show the letter H, then choose Next letter.</span></div></div>
+      </section>
+
+      <section class="alphabet-section" aria-labelledby="chart-heading"><div class="alphabet-heading"><div><span class="section-index">05 / HANDSHAPE LIBRARY</span><h2 id="chart-heading">The whole alphabet, at a glance.</h2><p>Tap any letter to select it for training. The number shows how many examples you've saved.</p></div><span class="alphabet-count">A — Z <span>·</span> 26 SIGNS</span></div><div id="alphabet-grid" class="alphabet-grid" aria-label="Individual ASL letter reference cards"></div><p class="alphabet-note"><strong>Movement matters:</strong> ASL J and Z are drawn through the air. Their reference arrows show the motion, but this prototype classifies a single hand position, not a complete gesture sequence.</p></section>
+    </main>
+    <footer class="site-footer"><span>✳ signlab. &nbsp; Made for curious hands.</span><span>Learn • Practice • Repeat</span></footer>
+  </div>
+</body>
+</html>
