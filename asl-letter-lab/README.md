@@ -36,7 +36,7 @@ I improved the app in a few ways that make it feel more complete and easier to u
 
 Each video frame is copied to a canvas. `ml5.handPose()` estimates 21 hand landmarks. SignLab subtracts wrist coordinates from the landmarks, then divides by palm width, turning them into **42 normalized numbers**. When you click Save example, those 42 numbers are stored with the letter label you selected. For each detected hand, the app finds the stored example with the **smallest sum of squared differences** and displays its label. This is one-nearest-neighbor matching, not a pretrained 26-letter recognizer.
 
-## Important limitations:**
+## Important considerations/limits to the app:
 
 - Recognition depends on how many examples the user saves and how similar the current viewpoint is. Predictions may be wrong; there is no calibrated confidence score.
 - **J and Z involve movement.** This one-frame classifier cannot recognize the full movement path, even though their reference images include arrows.
