@@ -1,14 +1,9 @@
 # How I Used AI — SignLab Final Project
 
-> **Student note:** This is a starting template. Keep only details that are true and add your own work, testing, and decisions before submitting.
 
 ## AI tool used
 
 ChatGPT was used as a coding assistant while developing SignLab 2.0.
-
-## Example prompt / task
-
-On November 9, 2026, I asked ChatGPT to begin expanding my existing SignLab app into an AI final project. We decided to start with **Practice & Test Mode** rather than rebuild the entire app.
 
 ## What the AI helped draft
 
@@ -16,21 +11,28 @@ On November 9, 2026, I asked ChatGPT to begin expanding my existing SignLab app 
 - Responsive CSS for desktop and phone layouts.
 - `practice.js` to compare stable classifier guesses to practice targets and save attempts.
 - A small addition to `app.js` that shares live guesses with the new quiz code.
-- Documentation and a simulated test script.
 
 ## What I reviewed or changed myself
 
-**Fill this in after doing the work:**
+Planning the project: I chose to expand the ASL application into a more complete learning tool rather than build something from scratch.
 
-- The parts of the code I understood and checked: _____________________
-- A bug or design choice I changed: _____________________
-- How I tested the app with my webcam: _____________________
-- What worked and what did not: _____________________
+Improving the user experience: I made changes to the interface, individual ASL letter references, and the ability to save and reset training examples.
+
+Identifying recognition limitations: I recognized that J and Z require movement and pushed to include motion recognition rather than leave those letters out. This is still a work in progress.
+
+Training the application: I practiced ASL hand gestures in front of the webcam and saved training examples for recognition.
+
+Testing and debugging: I used Git Bash to run the project checker, discovered missing alphabet image files, and worked through fixing the issues until the script reported zero errors.
+
+Managing the project with Git: I worked with repositories, corrected Git folder issues, and kept the application files organized through GitHub.
+
+Improving documentation: I edited the README and recognition flowchart to make the explanations clearer and more natural.
 
 ## Limitations I identified
 
-SignLab uses a nearest-example comparison. A matching guess does not prove a sign was correct. Motion-based ASL letters J and Z are not scored by this single-frame quiz. Training examples and practice history are saved only in the user's browser, not to GitHub.
+SignLab uses a nearest-example comparison. A matching guess does not prove a sign was correct. 
 
-## Future AI assistance
+Motion-based ASL letters J and Z are not scored by this single-frame quiz. 
 
-Record each major additional AI-assisted step below with the date, example prompt, files changed, and your own testing/decisions.
+Training examples and practice history are saved only in the user's browser, not to GitHub.
+
