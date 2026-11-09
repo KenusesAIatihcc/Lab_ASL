@@ -1,62 +1,90 @@
-# SignLab AI Final project
+# SignLab AI — Learning ASL Through Machine Vision
 
-SignLab teaches the ASL **fingerspelling alphabet** using webcam hand tracking, saved training examples, practice rounds, word generation, and a local learning dashboard. It is a **learning prototype**, not a validated ASL interpreter.
+## About the Project
 
-## New final-project capabilities
+SignLab AI is a web application I developed to explore how artificial intelligence and machine vision can be used to make learning more interactive.
 
-- **Web UI:** responsive camera, prediction card, per-letter training, Practice & Test mode, word playground and learning dashboard.
-- **Hosting:** HTML/CSS/JS can be served by GitHub Pages with HTTPS. See `PROJECT_SETUP.md`.
-- **External API:** `dictionary.js` uses the public Free Dictionary API to fetch definitions for the word generator. The site itself runs without an API key.
-- **Bash scripting:** `scripts/check-project.sh` checks key files, alphabet images and JavaScript syntax. Execute it using Git Bash and document the output.
-- **Writable database:** `database.js` stores, reads, and deletes actual practice-attempt records in IndexedDB in the browser. This is distinct from `localStorage`, which saves training examples.
+The idea behind the project is simple: what if someone could use their webcam to practice the American Sign Language (ASL) alphabet and have a computer try to recognize the letters they're signing?
 
-## How SignLab recognizes letters
+I started with a basic hand recognition application and gradually expanded it into a learning tool. Users can teach the app different ASL handshapes, practice individual letters, generate words to fingerspell, and track their progress.
 
-For the 24 static letters, `ml5.handPose` estimates 21 landmarks from a video frame. `app.js` converts them to 42 wrist-relative, palm-width-normalized coordinates and compares them to saved examples. The **nearest example** supplies the guess.
+This project gave me an opportunity to experiment with AI in a way that connects technology, accessibility, and education.
 
-**J and Z are different:** `motion.js` records about 1.8 seconds of fingertip landmarks, creates a normalized movement path and compares that path (plus simple handshape data) to saved movement examples. J tracks the pinky tip; Z tracks the index fingertip. This motion recognizer is experimental. The checker and automated tests simulate paths, but **real webcam recognition must be tested manually**.
+## What SignLab Can Do
 
-Practice Mode compares a stable guess to a target letter. A match reflects the classifier's agreement, **not a verified assessment of ASL correctness**. The app does not interpret full sign language, facial expressions, or grammar.
+- **Recognize ASL letters:** Uses a webcam and hand-tracking technology to identify handshapes.
+- **Learn from examples:** Users can teach the app by saving examples of different letters.
+- **Recognize movement:** Includes experimental motion tracking for J and Z, the two letters that require hand movement.
+- **Practice letters:** Provides challenges where users can test their signing.
+- **Generate words:** Gives users words to practice fingerspelling.
+- **Track progress:** Keeps a record of practice attempts and learning activity.
+- **Remember training:** Saves examples in the browser so users don't have to start over every time.
+- **Share training examples:** Allows trained examples to be exported and imported, with the option to provide a starter set for new visitors.
 
-## Make the website usable immediately for new visitors
+## How It Works
 
-A **new visitor with no existing training** automatically downloads and imports the published examples on first visit, then starts the camera and practices. Your visitor's browser saves its own changes.
+SignLab uses a machine vision library called ml5.js to find points along the user's hand and fingers through the webcam.
 
-Existing examples are **not silently overwritten**. If someone clears training, the starter set does not automatically reappear on the next refresh. Visitors can manually import a training JSON file if they want to replace their saved examples (with confirmation).
+The application takes those points and turns them into numbers that describe the hand's position and shape. It then compares that information with examples the user has already saved to make its best guess about the letter being signed.
 
-**Privacy:** The JSON contains no raw camera frames, but hand-landmark data may be sensitive biometric information. Only publish data that you personally collected and consent to share; do not publish someone else's data without permission. A shared example set may perform less accurately for hands or camera setups different from yours.
+For J and Z, the process is a little different. Since these letters require movement, the app records the path of the moving fingertip and compares it with saved movement examples.
 
-## Other storage notes
+The app is still a learning experiment, so its predictions aren't always perfect. Lighting, camera position, and differences in how people sign can affect the results.
 
-- `localStorage` keeps user's static examples, word position, and J/Z motion recordings. These are specific to a browser and site origin.
-- `IndexedDB` stores checked practice attempts: target, guess, model-match flag, and timestamp. It can read and clear the history.
-- No backend or account synchronization is included. GitHub Pages serves **static files**; it does not let visitors write to the repository. Visitors' practice history stays local.
+## Technologies Used
 
-## Automated tests and script
+- HTML, CSS, and JavaScript
+- ml5.js and HandPose
+- Browser localStorage
+- IndexedDB
+- Free Dictionary API
+- Git and GitHub
+- GitHub Pages
+- Bash scripting
 
-From the repository root in Git Bash / a terminal with Node installed:
+## Try SignLab
+
+**Live Website:** https://kenusesaiatihcc.github.io/Lab_ASL/
+
+To run the project on your own computer:
+
+1. Clone or download this repository.
+2. Open a terminal in the project folder.
+3. Start a local server using:
 
 ```bash
-node tests/practice-mode-test.js
-node tests/motion-test.js
-node tests/training-share-test.js
-bash scripts/check-project.sh
+python -m http.server 8000
 ```
 
-These are simulated tests. Additional tests: webcam access, static letter training, J/Z recordings, a new browser loading `data/starter-examples.json`, dictionary definitions when online, and that practice history survives reloading.
+4. Open `http://localhost:8000` in your browser.
+5. Allow webcam access and start practicing.
 
-## Project resources
+An internet connection is needed to load the hand-tracking library and model.
 
-- `index.html`, `style.css`, `app.js` — main site
-- `motion.js` — J/Z path recognition and training
-- `practice.js` — quiz and practice scoring
-- `database.js` — IndexedDB learning dashboard
-- `dictionary.js` — Free Dictionary API integration
-- `training-share.js` — export, import, and automatic starter examples
-- `assets/letters/` — 26 letter reference images
-- `data/README.md` — how to publish a shared starter set
-- `scripts/check-project.sh` — Bash project checker
-- `tests/` — tests runnable with Node
-- `docs/` — earlier flowchart and write-up, which can be edited independently
-- `AI_USAGE.md` — documented real AI-assisted development experience
-- `PROJECT_SETUP.md` — Git Bash install, GitHub Pages, and rubric demo instructions
+## What I Learned
+
+Working on SignLab helped me better understand how machine vision works beyond just reading about it in class.
+
+One of the most interesting parts was seeing how a computer could recognize patterns from hand positions. I also learned that recognizing a still handshape is different from recognizing movement, especially when working with letters like J and Z.
+
+Another important part of the project was learning how to improve an application over time. Adding features, fixing problems, testing changes, and keeping everything organized through GitHub became part of the learning process.
+
+I also used ChatGPT during development to help understand code, troubleshoot errors, and explore possible improvements. I reviewed and tested the changes as I worked on the project.
+
+## Limitations and Future Improvements
+
+Although SignLab can recognize trained handshapes, it is not a complete ASL translation system. American Sign Language involves more than individual letters, including movement, facial expressions, and its own grammar.
+
+Recognition accuracy can also vary between users, and the movement recognition for J and Z is still experimental.
+
+In the future, I would like to improve recognition accuracy, provide better feedback during practice, and make the application more useful for people who are just beginning to learn ASL.
+
+## Final Thoughts
+
+SignLab started as a small experiment with hand recognition, but it grew into something more interesting as I continued working on it.
+
+What I enjoy most about the project is that it demonstrates how AI can be used for something practical. Even though there is still plenty of room for improvement, it shows how machine vision can support learning and create new ways for people to interact with technology.
+
+---
+
+*SignLab AI is an educational project and is not intended to replace professional ASL instruction or interpretation.*
