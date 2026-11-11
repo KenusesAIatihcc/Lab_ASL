@@ -1,6 +1,4 @@
-# How I Used AI — SignLab Final Project
-
-
+# How I Used AI in the SignLab Final Project
 ## AI tool used
 
 ChatGPT was used as a coding assistant while developing SignLab 2.0.
@@ -35,4 +33,16 @@ SignLab uses a nearest-example comparison. A matching guess does not prove a sig
 Motion-based ASL letters J and Z are not scored by this single-frame quiz. 
 
 Training examples and practice history are saved only in the user's browser, not to GitHub.
+
+An important note to keep is that recognizing alphabet handshapes isn't the same as understanding ASL. ASL includes movement, facial expressions, and grammar that this application doesn't interpret.
+
+In the future, I would like to improve recognition accuracy, provide more useful feedback during practice, and continue making the application easier for beginners to use.
+
+## Final Thoughts
+
+I'm proud of how SignLab has developed from the original classroom exercise.
+
+It gave me a chance to apply several concepts I've learned while exploring how AI could be used in education and accessibility.
+
+The project isn't perfect, but that's part of what made it interesting. Every problem gave me something new to figure out, and every improvement helped me understand the technology a little better.
 

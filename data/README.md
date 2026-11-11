@@ -1,8 +1,8 @@
 # Starter training data for GitHub Pages
 
-This folder intentionally has no `starter-examples.json` yet because SignLab cannot access your personal browser training from GitHub or a ZIP.
+This folder intentionally has no `starter-examples.json` yet because SignLab does not and cannot access personal browser training from GitHub.
 
-1. Open SignLab in the browser where you have trained the signs.
+1. Open SignLab in the browser where the signs have been trained.
 2. Click **Export training JSON** and save `starter-examples.json`.
 3. Copy it into this `data/` folder next to this README.
 4. Commit and push the JSON file to GitHub.
@@ -10,4 +10,6 @@ This folder intentionally has no `starter-examples.json` yet because SignLab can
 
 **Do not publish anyone else's training examples without their informed permission.** These are numeric hand landmarks, not photos, but can still be potentially identifying biometric data.
 
-Importing replaces your own training data after confirmation. The starter JSON never overwrites a visitor's existing training, and clearing the examples does not silently restore the starter training.
+Importing replaces training data after confirmation. 
+
+The starter JSON never overwrites a visitor's existing training, and clearing the examples does **not** silently restore the starter training.

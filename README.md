@@ -1,4 +1,4 @@
-# SignLab AI — Learning ASL Through Machine Vision
+# SignLab AI : Learning ASL Through Machine Vision
 
 ## About the Project
 
@@ -87,4 +87,6 @@ What I enjoy most about the project is that it demonstrates how AI can be used f
 
 ---
 
-*SignLab AI is an educational project and is not intended to replace professional ASL instruction or interpretation.*
+As always Fine print to CYA
+
+**SignLab AI is an educational project and is not intended to replace professional ASL instruction or interpretation.**
