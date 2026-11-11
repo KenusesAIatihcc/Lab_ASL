@@ -1,4 +1,4 @@
-    # Starter training data for GitHub Pages
+# Starter training data for GitHub Pages
 
 This folder contains starter-examples.json, which stores ASL handshape training data/examples I exported from SignLab.
 
@@ -28,4 +28,5 @@ The starter JSON never overwrites a visitor's existing training, and clearing th
 
 As always fine print CYA 
 
+------
 it is not lost on me that my **Training examples** are numeric hand landmarks, not photos, but can still be potentially identifying biometric data.I do not consent for my data to be used in any commercial capacity without prior consent.
